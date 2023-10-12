@@ -42,3 +42,45 @@ char* readString(const char* fileName) {
     return contents;
 }
 
+
+
+
+
+/*
+ * mysteryExplode - takes a string of characters and explodes it
+ * as follows:
+ * 
+ * A non-empty string such as "Code" is turned into "CCoCodCode".
+ *
+ *   Return a new string similar to the string given above.
+ *
+ *  Example:
+ *   mysteryExplosion("Code") --> "CCoCodCode"
+ *   mysteryExplosion("abc") --> "aababc"
+ *   mysteryExplosion(":)") --> "::)"
+ * 
+ */
+char* mysteryExplode(const char* str) {
+    size_t strLength = strlen(str);
+    size_t finalStrLength = (strLength * (strLength + 1) / 2) + 1;
+    char* resultStr = (char*)malloc(finalStrLength); // Allocate memory for the result string
+
+    if (resultStr == NULL) {
+        fprintf(stderr, "Memory allocation failed.");
+        return NULL;
+    }
+
+    resultStr[0] = '\0'; // Initialize the result str as an empty string
+
+    size_t resultIndex = 0; // Track the current position in resultStr
+
+    for (size_t i = 0; i < strLength; i++) { // Outer Loop
+        for (size_t j = 0; j <= i; j++) {    // Inner Loop
+            resultStr[resultIndex++] = str[j]; // Copying chars over, 1 by 1
+        }
+        resultStr[resultIndex] = '\0'; // Updating the null-termination of the C string
+    }
+
+    return resultStr;
+}
+
