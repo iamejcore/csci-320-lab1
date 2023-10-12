@@ -26,5 +26,19 @@ char* readString(const char* fileName) {
         return NULL;
     }
 
+    char* contents = (char*)malloc(file_size + 1);  // +1 for null terminator
+
+    if (contents == NULL) {
+        fprintf(stderr, "Error in dynamically allocating memory for contents.");
+        fclose(file);
+        return NULL;
+    }
+
+    size_t bytes_read = fread(contents, 1, file_size, file);
+    contents[bytes_read] = '\0'; // Null-terminate the string
+
+    fclose(file);
+
+    return contents;
 }
 
